@@ -128,7 +128,13 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         options, e.g. openpyn uk -o \'--status /var/log/status.log --log /var/log/log.log\'')
     parser.add_argument(
         '-loc', '--location', nargs=2, type=float, metavar=('latitude', 'longitude'))
-
+    parser.add_argument(
+        '--username', dest='username', help='Nord Vpn username',
+        action='store_true')
+    parser.add_argument(
+        '--password', dest='password', help='Nord Vpn password',
+        action='store_true')
+    
     return parser.parse_args(argv[1:])
 
 
@@ -141,7 +147,8 @@ def main() -> bool:
         args.kill, args.kill_flush, args.update, args.list_servers,
         args.force_fw_rules, args.p2p, args.dedicated, args.double_vpn,
         args.tor_over_vpn, args.anti_ddos, args.netflix, args.test, args.internally_allowed,
-        args.skip_dns_patch, args.silent, args.nvram, args.openvpn_options, args.location)
+        args.skip_dns_patch, args.silent, args.nvram, args.openvpn_options, args.location, 
+        args.username, args.password)
     return return_code
 
 
@@ -150,10 +157,10 @@ def run(init: bool, server: str, country_code: str, country: str, area: str, tcp
         max_load: int, top_servers: int, pings: str, kill: bool, kill_flush: bool, update: bool, list_servers: bool,
         force_fw_rules: bool, p2p: bool, dedicated: bool, double_vpn: bool, tor_over_vpn: bool, anti_ddos: bool,
         netflix: bool, test: bool, internally_allowed: List, skip_dns_patch: bool, silent: bool, nvram: str,
-        openvpn_options: str, location: float) -> bool:
+        openvpn_options: str, location: float, username:str, password:str) -> bool:
 
     if init:
-        initialise(log_folder)
+        initialise(username, password, log_folder)
 
     fieldstyles = {
         'asctime': {'color': 'green'},
