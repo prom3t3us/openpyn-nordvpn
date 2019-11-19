@@ -18,10 +18,7 @@ def check_credentials() -> bool:
     return os.path.exists(credentials_file_path)
 
 
-def save_credentials() -> None:
-    if not sys.__stdin__.isatty():
-        logger.critical("Please run %s in interactive mode", __name__)
-        sys.exit(1)
+def save_credentials(username=None, password=None) -> None:
 
     if root.verify_running_as_root() is False:
         logger.error("Please run as 'sudo openpyn --init' the first time. \
@@ -31,8 +28,12 @@ Root access is needed to store credentials in '%s'.", credentials_file_path)
         logger.info("Storing credentials in '%s' with openvpn \
 compatible 'auth-user-pass' file format", credentials_file_path)
 
-        username = input("Enter your username for NordVPN, i.e youremail@yourmail.com: ")
-        password = getpass.getpass("Enter the password for NordVPN: ")
+        if username is None:
+            username = input("Enter your username for NordVPN, i.e youremail@yourmail.com: ")
+            
+        if password is None:    
+            password = getpass.getpass("Enter the password for NordVPN: ")
+            
         try:
             with open(credentials_file_path, 'w') as creds:
                 creds.write(username + "\n")
