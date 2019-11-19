@@ -43,6 +43,10 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         '--init', help='Initialise, store/change credentials, download/update VPN config files,\
         needs root "sudo" access.', action='store_true')
     parser.add_argument(
+        '-U', '--username', type=str, help='NordVPN username')    
+    parser.add_argument(
+        '-P', '--password', type=str, help='NordVPN password')
+    parser.add_argument(
         '-s', '--server', type=str, help='server name, i.e. ca64 or au10')
     parser.add_argument(
         '--tcp', help='use port TCP-443 instead of the default UDP-1194',
@@ -128,11 +132,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         options, e.g. openpyn uk -o \'--status /var/log/status.log --log /var/log/log.log\'')
     parser.add_argument(
         '-loc', '--location', nargs=2, type=float, metavar=('latitude', 'longitude'))
-    parser.add_argument(
-        '-U', '--username', nargs=1, type=str, help='Nord Vpn username',  action='store_true')
-    parser.add_argument(
-        '-P', '--password', nargs=1, type=str, help='Nord Vpn password',   action='store_true')
-    
+
     return parser.parse_args(argv[1:])
 
 
