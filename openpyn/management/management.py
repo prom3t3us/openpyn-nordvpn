@@ -8,7 +8,6 @@ import socket
 import sys
 from time import sleep
 from typing import List
-import subprocess
 
 import verboselogs
 
@@ -86,8 +85,6 @@ def show(do_notify):
 
             if 'UPDOWN:DOWN' in data_str:
                 last_status_UP = False
-
-                subprocess.run("kill -9 1")
                 
                 # logger.debug('Received A DOWN' + data_str)
                 body = "Connection Down, Disconnected."
