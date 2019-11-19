@@ -129,10 +129,10 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     parser.add_argument(
         '-loc', '--location', nargs=2, type=float, metavar=('latitude', 'longitude'))
     parser.add_argument(
-        '--username', dest='username', help='Nord Vpn username',
+        '-U', '--username', type=str, help='Nord Vpn username',
         action='store_true')
     parser.add_argument(
-        '--password', dest='password', help='Nord Vpn password',
+        '-P', '--password', type=str, help='Nord Vpn password',
         action='store_true')
     
     return parser.parse_args(argv[1:])
